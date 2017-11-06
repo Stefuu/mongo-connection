@@ -1,0 +1,26 @@
+{
+  "name": "mongo-connection",
+  "version": "1.0.0",
+  "description": "Faz conexão com o mongo e disponibiliza o objeto da conexão",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "mongo",
+    "connection"
+  ],
+  "author": "Stéfano Damiano <sdamiano@uolinc.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
+    "mongodb": "^2.2.33"
+  }
+}
