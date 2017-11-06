@@ -1,6 +1,6 @@
 {
   "name": "mongo-connection",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Faz conexão com o mongo e disponibiliza o objeto da conexão",
   "main": "index.js",
   "scripts": {
