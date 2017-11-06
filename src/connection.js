@@ -41,8 +41,10 @@ class Db {
 	}
 
 	connect() {
+		log('MongoDB connecting...')
 		return mongodb.connect(this.dbUrl, this.config.options)
 		.then(res => {
+			log('MongoDB connection is established')
 			this.isConnected = true
 			this.db = res
 			this.binds()
@@ -114,9 +116,9 @@ class Db {
 	    })
 
 	    // If the Node process ends, close the connection
-	    process.on('SIGINT', function() {
+	    process.on('SIGINT', () => {
 	    	this.isConnected = false
-	      	this.db.close(function () {
+	      	this.db.close(() => {
 	        	log('Mongo default connection disconnected through app termination')
 	        	process.exit(0)
 	      	})
@@ -156,7 +158,7 @@ class Db {
 		}
 	}
 
-	close() {
+	close() {		
 		if(typeof this.events.close == 'function'){
 			this.events.close()
 		}
