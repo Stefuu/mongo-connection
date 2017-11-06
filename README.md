@@ -11,7 +11,8 @@ Instance the connection class like so:
 
 ```javascript
 /* 
-The 'config' parameter can be null if you prefer to use the following node enviroment variables
+The 'config' parameter can be null if you prefer to
+use the following node enviroment variables:
 DATABASE_NAME=<NAME>
 DATABASE_URI=<URI>
 DATABASE_USER=<USER>
@@ -53,22 +54,22 @@ You can set custom events for you mongo connection instance like so:
 // custom code that will run after the event triggers
 let events = {
   disconnected: function(){
-    
+    //some code
   },
   connecting: function(){
-    
+    //some code
   },
   open: function(){
-    
+    //some code
   },
   error: function(){
-    
+    //some code
   },
   reconnected: function(){
-    
+    //some code
   },
   close: function(){
-    
+    //some code
   }
 }
 
