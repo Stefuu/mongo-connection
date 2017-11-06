@@ -7,7 +7,7 @@ npm install --save mongo-connection
 ```
 
 ## Usage
-Create a instance of the connection class like so:
+Instance the connection class like so:
 
 ```javascript
 /* 
@@ -28,7 +28,29 @@ let config = {
   replicaset: "<DATABASE_REPLICASET>"
 }
 
-// custom code that will run after the event triggers (can be null)
+let Db = require('mongo-connection')
+let mongoInstance = new Db(config)
+
+mongoInstance.connect()
+.then(db => {  
+  //now you can use it like so
+  let collection = db.collection('<MY_COLLECTION>')  
+  collection.find({})
+  .toArray()
+  .then(docs => {
+    //do something cool with query result
+  })
+})
+.catch(err => {
+  console.log(err)
+})
+```
+
+### Custom events
+You can set custom events for you mongo connection instance like so:
+
+```javascript
+// custom code that will run after the event triggers
 let events = {
   disconnected: function(){
     
@@ -50,23 +72,5 @@ let events = {
   }
 }
 
-let Db = require('mongo-connection')
-let dbInstance = new Db(events, config)
-
-dbInstance.connect()
-.then(() => {
-  let db = dbInstance.db //this is your mongo connection
-  
-  //now you can use it like so
-  let collection = db.collection('<MY_COLLECTION>')  
-  collection.find({})
-  .toArray()
-  .then(docs => {
-    console.log(docs)
-    //do something cool with query result
-  })
-})
-.catch(err => {
-  console.log(err)
-})
+mongoInstance.setEvents(events)
 ```

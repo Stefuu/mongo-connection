@@ -9,7 +9,7 @@ const error = require('debug')('[mongo-connection]:error')
 /**/
 class Db {
 	
-	constructor(events, config) {
+	constructor(config) {
 		config = config || {}
 		config.options = config.options || {}
 
@@ -37,17 +37,18 @@ class Db {
 		}
 		this.dbUrl = dbUrl
 		this.config = config
-		this.events = events || {}
+		this.events = {}
 	}
 
 	connect() {
 		log('MongoDB connecting...')
 		return mongodb.connect(this.dbUrl, this.config.options)
 		.then(res => {
-			log('MongoDB connection is established')
+			log('MongoDB connection established')
 			this.isConnected = true
 			this.db = res
 			this.binds()
+			this.open()
 			return Promise.resolve(this.db)
 		})
 		.catch(err => {
@@ -57,6 +58,10 @@ class Db {
 	      	}, 5000)
 			return Promise.reject(err)
 		})
+	}
+
+	setEvents(events) {
+		this.events = events
 	}
 
 	disconnect() {
@@ -74,17 +79,6 @@ class Db {
   	* Default event handling *
   	**************************/
 	binds() {
-	    this.db.on('connecting', () => {
-      		log('MongoDB connecting...')
-      		this.connecting()
-    	})
-
-	    this.db.on('open', () => {
-	    	this.isConnected = true
-	      	log('MongoDB connection is established')
-	      	this.open()
-	    })
-
 	    this.db.on('error', err => {
 	      	this.isConnected = false
 	      	this.count.error++
@@ -128,11 +122,6 @@ class Db {
   	/**************************************
   	* Custom callbacks for event handling *
   	***************************************/
-  	connecting() {
-		if(typeof this.events.connecting == 'function'){
-			this.events.connecting()
-		}
-	}
 
 	open() {
 		if(typeof this.events.open == 'function'){

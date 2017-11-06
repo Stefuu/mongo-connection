@@ -17,9 +17,6 @@ const events = {
 	disconnected: function(){
 		eventCalled.disconnected = true
 	},
-	connecting: function(){
-		eventCalled.connecting = true
-	},
 	open: function(){
 		eventCalled.open = true
 	},
@@ -34,7 +31,8 @@ const events = {
 	}
 }
 
-const mongo = new DbClass(events)
+const mongo = new DbClass()
+mongo.setEvents(events)
 
 describe('Connection', () => {
 	it('Should connect to mongo', () => {
@@ -44,6 +42,7 @@ describe('Connection', () => {
 	    	expect(mongo.isConnected).to.equal(true)
 	    })
 	})
+
 	it('Should disconnect from mongo', () => {
 		return mongo.disconnect()
 		.then(() => {
@@ -60,6 +59,7 @@ describe('Events', () => {
 			expect(mongo.isConnected).to.equal(true)
 		})
 	})
+
 	afterEach(() => {
 		return mongo.disconnect()
 		.then(() => {
@@ -75,17 +75,11 @@ describe('Events', () => {
 		expect(eventCalled.disconnected).to.equal(true)
 		expect(mongo.count.disconnected).to.be.greaterThan(0)
   	})
-  	it('Should call "connecting" callback on "connecting" event', () => {
-		expect(eventCalled.connecting).to.equal(false)
-		mongo.db._events.connecting()
-		expect(eventCalled.connecting).to.equal(true)
-  	})
-  	it('Should call "open" callback on "open" event and set status properly', () => {
-		expect(eventCalled.open).to.equal(false)
-		mongo.db._events.open()
+
+  	it('Should call "open" callback on "open" event', () => {		
 		expect(eventCalled.open).to.equal(true)
-		expect(mongo.isConnected).to.equal(true)
   	})
+
   	it('Should call "error" callback on "error" event and set status properly', () => {
 		expect(mongo.isConnected).to.equal(true)
 		expect(eventCalled.error).to.equal(false)
@@ -94,6 +88,7 @@ describe('Events', () => {
 		expect(mongo.isConnected).to.equal(false)
 		expect(mongo.count.error).to.be.greaterThan(0)
   	})
+
   	it('Should call "reconnected" callback on "reconnected" event and set status properly', () => {
 		expect(eventCalled.reconnected).to.equal(false)
 		mongo.db._events.reconnected()
@@ -101,6 +96,7 @@ describe('Events', () => {
 		expect(mongo.isConnected).to.equal(true)
 		expect(mongo.count.reconnected).to.be.greaterThan(0)
   	})
+
   	it('Should call "close" callback on "close" event and set status properly', () => {
 		expect(mongo.isConnected).to.equal(true)
 		mongo.db._events.close()
