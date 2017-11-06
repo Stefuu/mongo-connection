@@ -1,6 +1,11 @@
 # mongo-connection
 An abstraction of a mongo connection using mongodb driver
 
+## Installation
+```
+npm install --save mongo-connection
+```
+
 ## Usage
 Create a instance of the connection class like so:
 
@@ -45,7 +50,7 @@ let events = {
   }
 }
 
-let Db = require('index.js')
+let Db = require('mongo-connection')
 let dbInstance = new Db(events, config)
 
 dbInstance.connect()
@@ -53,9 +58,15 @@ dbInstance.connect()
   let db = dbInstance.db //this is your mongo connection
   
   //now you can use it like so
-  db.find({name: 'Stéfano'})
+  let collection = db.collection('<MY_COLLECTION>')  
+  collection.find({})
+  .toArray()
   .then(docs => {
+    console.log(docs)
     //do something cool with query result
   })
+})
+.catch(err => {
+  console.log(err)
 })
 ```
