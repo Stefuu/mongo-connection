@@ -21,7 +21,8 @@ class Db {
 		dbUrl += process.env.DATABASE_URI || config.uri
 		dbUrl += '/'
 		dbUrl += process.env.DATABASE_NAME || config.name
-		dbUrl += '?authMechanism=' + process.env.DATABASE_AUTH_MECHANISM || config.auth_mechanism
+		dbUrl += '?authMechanism='
+		dbUrl += process.env.DATABASE_AUTH_MECHANISM || config.auth_mechanism
 
 		if(process.env.DATABASE_REPLICASET || config.replicaset) {
 			dbUrl += '&replicaSet=' + process.env.DATABASE_REPLICASET || config.replicaset  
