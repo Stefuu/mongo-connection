@@ -13,6 +13,19 @@ let eventCalled = {
 	close: false,
 }
 
+let config = {
+	options: {
+        "readPreference": "ReadPreference.SECONDARY_PREFERRED",
+        "keepAlive": 1000,
+        "connectTimeoutMS": 30000,
+        "poolSize": 5,
+        "autoReconnect": true,
+        "reconnectInterval": 30000,
+        "reconnectTries": 240
+    }
+	
+}
+
 const events = {
 	disconnected: function(){
 		eventCalled.disconnected = true
@@ -31,7 +44,7 @@ const events = {
 	}
 }
 
-const mongo = new DbClass()
+const mongo = new DbClass(config)
 mongo.setEvents(events)
 
 describe('Connection', () => {

@@ -29,6 +29,17 @@ let config = {
   replicaset: "<DATABASE_REPLICASET>"
 }
 
+// Mongo options (opitional)
+config.options: {
+  "readPreference": "ReadPreference.SECONDARY_PREFERRED",
+  "keepAlive": 1000,
+  "connectTimeoutMS": 30000,
+  "poolSize": 5,
+  "autoReconnect": true,
+  "reconnectInterval": 30000,
+  "reconnectTries": 240
+}
+
 let Db = require('mongo-connection')
 let mongoInstance = new Db(config)
 
