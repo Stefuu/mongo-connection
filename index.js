@@ -1,1 +1,1 @@
-require('./src/connection')
+module.exports = require('./src/connection')
