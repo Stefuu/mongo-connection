@@ -62,7 +62,7 @@ mongoInstance.connect()
 ```
 
 ### Custom events
-You can set custom events for you mongo connection instance like so:
+You can set custom events for your mongo connection instance like so:
 
 ```javascript
 // custom code that will run after the event triggers

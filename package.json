@@ -1,6 +1,6 @@
 {
   "name": "mongo-connection",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Connects to a mongo database",
   "main": "index.js",
   "scripts": {
