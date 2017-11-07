@@ -1,5 +1,6 @@
 # mongo-connection
 An abstraction of a mongo connection using mongodb driver
+GIT: https://github.com/Stefuu/mongo-connection
 
 ## Installation
 ```
