@@ -2,12 +2,17 @@
 
 require('dotenv').config()
 const mongodb = require('mongodb').MongoClient
+const ReadPreference = require('mongodb').ReadPreference
 const log = require('debug')('[mongo-connection]')
 log.log = console.log.bind(console)
 const error = require('debug')('[mongo-connection]:error')
 
 /**/
 class Db {
+	
+	static get ReadPreference() {
+		return ReadPreference;
+	}
 	
 	constructor(config) {
 		config = config || {}

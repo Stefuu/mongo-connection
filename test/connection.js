@@ -64,6 +64,17 @@ describe('Connection', () => {
 	})
 })
 
+describe('statics method', () => {
+	it('ReadPreference should exists and expose native ReadPreference', () => {
+		expect(DbClass.ReadPreference).to.be.a('function')
+		expect(DbClass.ReadPreference.PRIMARY).to.be.a('string')
+		expect(DbClass.ReadPreference.PRIMARY_PREFERRED).to.be.a('string')
+		expect(DbClass.ReadPreference.SECONDARY).to.be.a('string')
+		expect(DbClass.ReadPreference.SECONDARY_PREFERRED).to.be.a('string')
+		expect(DbClass.ReadPreference.NEAREST).to.be.a('string')
+	})
+})
+
 describe('Events', () => {
   	beforeEach(() => {
 		return mongo.connect()
